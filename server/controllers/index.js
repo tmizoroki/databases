@@ -22,7 +22,9 @@ module.exports = {
 
     // Ditto as above
     get: function (req, res) {
-
+      models.users.get(function(result) {
+        res.status(200).send(result);
+      });
     },
 
     post: function (req, res) {

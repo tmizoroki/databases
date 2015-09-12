@@ -15,7 +15,11 @@ module.exports = {
 
   users: {
     // Ditto as above.
-    get: function () {},
+    get: function (callback) {
+      db.retrieveUsers(function(result) {
+        callback(JSON.stringify(result));
+      });
+    },
     post: function (usernameObj) {
       db.insertUser(usernameObj);
     }

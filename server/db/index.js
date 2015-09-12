@@ -36,3 +36,9 @@ exports.retrieveMessage = function(callback) {
     callback(result);
   });
 };
+
+exports.retrieveUsers = function(callback) {
+  connection.query('SELECT username from users', function(err, result) {
+    callback(result);
+  })
+}
