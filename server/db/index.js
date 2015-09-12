@@ -26,5 +26,13 @@ exports.insertMessage = function(messageObj) {
     console.log('about to insert into messages');
     connection.query('INSERT into messages SET ?', messageObj);
   });
+};
 
-}
+exports.retrieveMessage = function(callback) {
+  var queryString = 'SELECT u.username, m.message, m.roomname ' + 
+                    'FROM users u inner join messages m on (u.userID = m.userID)';
+  connection.query(queryString, function(err, result) {
+    console.log("in db", typeof result);
+    callback(result);
+  });
+};

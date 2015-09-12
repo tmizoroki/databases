@@ -11,8 +11,22 @@ var router = require('./routes.js');
 var app = express();
 module.exports.app = app;
 
+var allowCrossDomain = function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", 'GET,POST,OPTIONS');
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+
+  if('OPTIONS' == req.method) {
+    res.send(200);
+  } else {
+    next();
+  }
+};
+
 // Set what we are listening on.
 app.set("port", 3000);
+
+app.use(allowCrossDomain);
 
 // Logging and parsing
 app.use(morgan('dev'));
@@ -29,4 +43,3 @@ if (!module.parent) {
   app.listen(app.get("port"));
   console.log("Listening on", app.get("port"));
 }
-

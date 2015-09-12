@@ -4,7 +4,10 @@ module.exports = {
   messages: {
 
     get: function (req, res) {
-      console.log("You're in controllers");
+      models.messages.get(function(result) {
+        console.log('controllers result', result);
+        res.status(200).send(result);
+      });
     }, // a function which handles a get request for all messages
 
     post: function (req, res) {
