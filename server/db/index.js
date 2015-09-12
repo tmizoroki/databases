@@ -14,6 +14,7 @@ var connection = mysql.createConnection({
 connection.connect();
 
 exports.insertUser = function(usernameObj) {
+  console.log('about to insert into users')
   connection.query('INSERT into users SET ?', usernameObj)
 };
 
@@ -22,6 +23,7 @@ exports.insertMessage = function(messageObj) {
     delete messageObj.username;
     messageObj.userID = result[0].userID;
 
+    console.log('about to insert into messages');
     connection.query('INSERT into messages SET ?', messageObj);
   });
 

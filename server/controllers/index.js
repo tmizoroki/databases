@@ -8,6 +8,7 @@ module.exports = {
     }, // a function which handles a get request for all messages
 
     post: function (req, res) {
+      console.log('inside controllers messages post');
       models.messages.post(req.body);
       res.sendStatus(201);
     } // a function which handles posting a message to the database
@@ -22,6 +23,7 @@ module.exports = {
     },
 
     post: function (req, res) {
+      console.log('inside controllers users post');
       models.users.post(req.body);
       res.sendStatus(201);
     }
