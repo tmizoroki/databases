@@ -3,7 +3,7 @@ CREATE DATABASE chat;
 USE chat;
 
 CREATE TABLE users (
-  userID int NOT NULL,
+  userID int NOT NULL AUTO_INCREMENT,
   username varchar(20),
   PRIMARY KEY (userID)
 );
