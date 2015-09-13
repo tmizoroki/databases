@@ -1,19 +1,27 @@
-var models = require('../models');
+// var models = require('../models');
+var db = require('../db');
 
 module.exports = {
   messages: {
 
     get: function (req, res) {
-      models.messages.get(function(result) {
-        console.log('controllers result', result);
-        res.status(200).send(result);
+      db.messages.findAll({include: [db.users]}).then(function(results) {
+        res.status(200).json(results);
       });
     }, // a function which handles a get request for all messages
 
     post: function (req, res) {
-      console.log('inside controllers messages post');
-      models.messages.post(req.body);
-      res.sendStatus(201);
+      db.users.findOrCreate({where: {username: req.body.username}})
+        .then(function(user) {
+          db.messages.create({
+            userId: user[0].dataValues.id,
+            message: req.body.message,
+            roomname: req.body.roomname
+          });
+        })
+        .then(function() {
+         res.sendStatus(201); 
+        });
     } // a function which handles posting a message to the database
 
   },
@@ -22,15 +30,18 @@ module.exports = {
 
     // Ditto as above
     get: function (req, res) {
-      models.users.get(function(result) {
-        res.status(200).send(result);
+      db.users.findAll()
+      .then(function(result) {
+        res.status(200).json(result);
       });
     },
 
     post: function (req, res) {
-      console.log('inside controllers users post');
-      models.users.post(req.body);
-      res.sendStatus(201);
+      db.users.create({
+        username: req.body.username
+      }).then(function(result) {
+        res.sendStatus(201);
+      });
     }
 
   }

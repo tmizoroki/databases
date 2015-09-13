@@ -63,9 +63,9 @@ var app = {
       success: function(data) {
         // Don't bother if we have nothing to work with
         if (!data || !data.length) { return; }
-        console.log(data);
+        //console.log(data);
 
-        data = JSON.parse(data);
+        //data = JSON.parse(data);
 
         // Get the last message
         // var mostRecentMessage = data[data.length-1];
@@ -156,10 +156,10 @@ var app = {
       // Add in the message data using DOM methods to avoid XSS
       // Store the username in the element's data
       var $username = $('<span class="username"/>');
-      $username.text(data.username+': ').attr('data-username', data.username).attr('data-roomname',data.roomname).appendTo($chat);
+      $username.text(data.user.username+': ').attr('data-username', data.user.username).attr('data-roomname',data.roomname).appendTo($chat);
 
       // Add the friend class
-      if (app.friends[data.username] === true)
+      if (app.friends[data.user.username] === true)
         $username.addClass('friend');
 
       var $message = $('<br><span/>');
